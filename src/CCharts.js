@@ -3,8 +3,8 @@ import 'react-app-polyfill/stable';
 import React, {useState, useEffect, useRef, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import Chart from 'chart.js'
-import { customTooltips as cuiCustomTooltips } from '@coreui/coreui-chartjs/dist/js/coreui-chartjs.js'
-import "@coreui/coreui-chartjs/dist/css/coreui-chartjs.css";
+import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs'
+import "@coreui/chartjs/dist/css/coreui-chartjs.css";
 
 //component - CoreUI / CCharts
 
