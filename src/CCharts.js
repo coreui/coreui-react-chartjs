@@ -55,7 +55,7 @@ const CCharts = props=>{
   const safeId = (()=>{
     // as long as this._uid() works there is no need to generate the key
     const key = () => Math.random().toString(36).replace('0.', '')
-    return '__safe_id__' + _uid || key()
+    return '__safe_id__' + (_uid || key())
   })();
   const computedDatasets = (()=>{
     return datasets
