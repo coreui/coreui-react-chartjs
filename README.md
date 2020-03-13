@@ -9,7 +9,6 @@
 
 ##### install:
 ```bash
-npm install @coreui/react
 npm install @coreui/react-chartjs 
 ```
 
