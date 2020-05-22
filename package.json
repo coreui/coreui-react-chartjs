@@ -36,29 +36,25 @@
   "scripts": {
     "build": "nwb build-react-component --copy-files --no-demo",
     "clean": "nwb clean-module && nwb clean-demo",
-    "lint": "eslint src",
-    "link": "npm link @coreui/react"
+    "lint": "eslint src"
   },
   "dependencies": {
     "@coreui/chartjs": "^2.0.0",
     "chart.js": "^2.9.3",
     "classnames": "^2.2.6",
-    "core-js": "^3.6.4",
     "prop-types": "^15.7.2"
   },
   "peerDependencies": {
-    "react": "^16.12.0"
+    "react": "^16.13.1"
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
-    "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-react": "^7.18.3",
-    "nwb": "^0.24.2",
-    "react-app-polyfill": "^1.0.6",
-    "sinon": "^5.1.1"
+    "eslint": "^7.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-react": "^7.20.0",
+    "nwb": "^0.25.2"
   },
   "keywords": [
     "coreui",
