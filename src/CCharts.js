@@ -1,14 +1,12 @@
-import 'react-app-polyfill/ie11'; // For IE 11 support
-import 'react-app-polyfill/stable';
-import React, {useState, useEffect, useRef, useMemo} from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import Chart from 'chart.js'
-import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs'
-import "@coreui/chartjs/dist/css/coreui-chartjs.css";
+import Chart from 'chart.js';
+import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs';
+import '@coreui/chartjs/dist/css/coreui-chartjs.css';
 
 //component - CoreUI / CCharts
 
-const CCharts = props=>{
+const CCharts = props => {
 
   const {
     //
@@ -23,7 +21,7 @@ const CCharts = props=>{
 
   //console.log(Chart);
 
-  const compData = useRef({firstRun:true}).current;
+  const compData = useRef({ firstRun: true }).current;
   const [chart, setChart] = useState();
   const ref = useRef();
 
@@ -32,58 +30,58 @@ const CCharts = props=>{
 
   // methods
 
-  const renderChart = ()=>{
-    destroyChart()
+  const renderChart = () => {
+    destroyChart();
     setChart(new Chart(
       ref.current.getContext('2d'),
       chartConfig
-    ))
-  }
-  const updateChart = ()=>{
-    Object.assign(chart, chartConfig)
-    chart.update()
-  }
-  const destroyChart = ()=>{
+    ));
+  };
+  const updateChart = () => {
+    Object.assign(chart, chartConfig);
+    chart.update();
+  };
+  const destroyChart = () => {
     if (chart) {
-      chart.destroy()
+      chart.destroy();
     }
-  }
+  };
 
   // vars
 
   const _uid = '';
-  const safeId = (()=>{
+  const safeId = (() => {
     // as long as this._uid() works there is no need to generate the key
-    const key = () => Math.random().toString(36).replace('0.', '')
-    return '__safe_id__' + (_uid || key())
+    const key = () => Math.random().toString(36).replace('0.', '');
+    return '__safe_id__' + (_uid || key());
   })();
-  const computedDatasets = (()=>{
-    return datasets
+  const computedDatasets = (() => {
+    return datasets;
   })();
   //
-  const computedLabels = (()=>{
+  const computedLabels = (() => {
     if (labels && typeof labels !== 'string') {
-      return labels
+      return labels;
     } else if (!datasets || !datasets[0] || !datasets[0].data) {
-      return []
+      return [];
     }
-    const emptyLabels = Array(datasets[0].data.length).fill('')
+    const emptyLabels = Array(datasets[0].data.length).fill('');
     if (labels === 'indexes') {
-      return emptyLabels.map((u, i) => i + 1)
+      return emptyLabels.map((u, i) => i + 1);
     } else if (labels === 'months') {
-      return emptyLabels.map((u, i) => months[i % 12])
+      return emptyLabels.map((u, i) => months[i % 12]);
     }
-    return emptyLabels
+    return emptyLabels;
   })();
-  const computedData = (()=>{
+  const computedData = (() => {
     return {
       datasets: computedDatasets,
       labels: computedLabels
-    }
+    };
   })();
-  const customTooltips = (()=>{
+  const customTooltips = (() => {
     if (options && options.tooltips) {
-      return
+      return;
     }
     return {
       tooltips: {
@@ -95,44 +93,44 @@ const CCharts = props=>{
         callbacks: {
           labelColor(tooltipItem, chart) {
             function getValue(prop) {
-              return typeof prop === 'object' ? prop[tooltipItem.index] : prop
+              return typeof prop === 'object' ? prop[tooltipItem.index] : prop;
             }
-            const dataset = chart.data.datasets[tooltipItem.datasetIndex]
+
+            const dataset = chart.data.datasets[tooltipItem.datasetIndex];
             //tooltipLabelColor is coreUI custom prop used only here
             const backgroundColor = getValue(
               dataset.tooltipLabelColor ||
               dataset.pointHoverBackgroundColor ||
               dataset.borderColor ||
               dataset.backgroundColor
-            )
+            );
             return {
               backgroundColor
-            }
+            };
           }
         }
       }
-    }
+    };
   })();
-  const computedOptions = (()=>{
-    return Object.assign({}, options, customTooltips || {})
+  const computedOptions = (() => {
+    return Object.assign({}, options, customTooltips || {});
   })();
-  const chartConfig = (()=>{
+  const chartConfig = (() => {
     return {
       type: type,
       data: computedData,
       options: computedOptions || options,
       plugins: plugins
-    }
+    };
   })();
 
   //watch
 
   //chartConfig
-  useMemo(()=>{
+  useMemo(() => {
     if (compData.firstRun) return;
     updateChart();
   }, [chartConfig]);
-
 
   // effect
 
@@ -140,7 +138,7 @@ const CCharts = props=>{
     renderChart();
     compData.firstRun = false;
     return () => {
-      destroyChart()
+      destroyChart();
     };
   }, []);
 
@@ -152,7 +150,7 @@ const CCharts = props=>{
     </div>
   );
 
-}
+};
 
 CCharts.propTypes = {
   //
@@ -164,7 +162,6 @@ CCharts.propTypes = {
   type: PropTypes.string
 };
 
-CCharts.defaultProps = {
-};
+CCharts.defaultProps = {};
 
 export default CCharts;
