@@ -1,5 +1,6 @@
 import {
   CChart,
+  CCharts,
   CChartBar,
   CChartHorizontalBar,
   CChartLine,
@@ -11,6 +12,7 @@ import {
 
 export {
   CChart,
+  CCharts,
   CChartBar,
   CChartHorizontalBar,
   CChartLine,
