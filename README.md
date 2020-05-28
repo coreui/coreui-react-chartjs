@@ -14,8 +14,29 @@ npm install @coreui/react-chartjs
 
 ##### import: 
 ```jsx
-import { CCharts } from '@coreui/react-chartjs';
+import { CChart } from '@coreui/react-chartjs';
 ```
+or 
+```js
+import {
+  CChart,
+  CChartBar,
+  CChartHorizontalBar,
+  CChartLine,
+  CChartDoughnut,
+  CChartRadar,
+  CChartPie,
+  CChartPolarArea,
+} from '@coreui/react-chartjs'
+```
+
+props:  
+- `innerRef` object | func | string
+- `datasets` array  
+- `labels` array | string  
+- `options` object  
+- `plugins` array  
+- `type` string: `bar` | `horizontalBar` | `line` | `doughnut` | `radar` | `pie` | `polarArea`
 
 ##### usage:
 ```jsx
@@ -24,7 +45,7 @@ class CoreUICharts extends Component {
 ...
 render() {
     return (
-      <CCharts
+      <CChart
         type="radar"
         datasets={[
           {
