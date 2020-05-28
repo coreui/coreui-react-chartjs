@@ -47,7 +47,6 @@ const CChart = props => {
       return labels
     }
     const emptyLabels = Array(dataset.length).fill('')
-    console.log(emptyLabels, dataset)
     if (labels === 'indexes') {
       return emptyLabels.map((u, i) => i + 1)
     } else if (labels === 'months') {
