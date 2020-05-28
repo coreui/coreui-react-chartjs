@@ -30,7 +30,7 @@ import {
 } from '@coreui/react-chartjs'
 ```
 
-props:  
+##### props:  
 - `innerRef` object | func | string
 - `datasets` array  
 - `labels` array | string  
