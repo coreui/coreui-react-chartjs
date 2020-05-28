@@ -1,6 +1,6 @@
 {
   "name": "@coreui/react-chartjs",
-  "version": "1.0.0-alpha.3",
+  "version": "1.0.0-alpha.4",
   "description": "CoreUI React component wrapper for chart.js",
   "license": "MIT",
   "homepage": "https://coreui.io",
