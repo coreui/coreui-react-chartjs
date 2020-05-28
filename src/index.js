@@ -1,3 +1,21 @@
-// CoreUI 3 index
+import {
+  CChart,
+  CChartBar,
+  CChartHorizontalBar,
+  CChartLine,
+  CChartDoughnut,
+  CChartRadar,
+  CChartPie,
+  CChartPolarArea,
+} from './CChart'
 
-export {default as CCharts} from './CCharts';
+export {
+  CChart,
+  CChartBar,
+  CChartHorizontalBar,
+  CChartLine,
+  CChartDoughnut,
+  CChartRadar,
+  CChartPie,
+  CChartPolarArea
+}
