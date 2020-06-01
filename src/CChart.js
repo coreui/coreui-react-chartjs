@@ -140,7 +140,7 @@ const CChartPie = props => <CChart {...props} type="pie"/>
 const CChartPolarArea = props => <CChart {...props} type="polarArea"/>
 const CCharts = props => {
   console.warn(
-    '<CCharts> component has been deprecated. Use <CChart> or <CChart*> instead'
+    '<CCharts> component has been deprecated. Use <CChart> or <CChart{type}> instead'
   )
   return <CChart {...props}/>
 }
