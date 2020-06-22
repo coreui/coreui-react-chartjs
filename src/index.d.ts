@@ -1,13 +1,15 @@
-interface Charts {
-  innerRef?: any;
-  datasets?: Array<any>;
-  labels?: string | Array<any>;
-  options?: any;
-  plugins?: Array<any>;
+import { HTMLProps } from 'react'
+
+interface Charts extends HTMLProps<any> {
+  innerRef?: any
+  datasets?: Array<any>
+  labels?: string | Array<any>
+  options?: any
+  plugins?: Array<any>
 }
 
 interface CChart extends Charts {
-  type?: string;
+  type?: string
 }
 
 interface CChartBar extends Charts {}

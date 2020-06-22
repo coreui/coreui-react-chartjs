@@ -29,6 +29,7 @@
   "files": [
     "css/",
     "es/",
+    "src/index.d.ts",
     "lib/",
     "umd/",
     "README.md"
