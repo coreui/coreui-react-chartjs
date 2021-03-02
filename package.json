@@ -41,20 +41,19 @@
   },
   "dependencies": {
     "@coreui/chartjs": "^2.0.0",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "classnames": "^2.2.6",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "@types/chart.js": "^2.9.31"
   },
   "peerDependencies": {
-    "react": "^16.13.1"
+    "react": "^17.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.2",
-    "eslint": "^7.3.0",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-react": "^7.20.0",
+    "eslint": "^7.21.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-react": "^7.22.0",
     "nwb": "^0.25.2"
   },
   "keywords": [
