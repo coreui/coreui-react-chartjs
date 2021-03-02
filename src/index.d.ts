@@ -1,10 +1,11 @@
 import { HTMLProps } from 'react'
+import { ChartDataSets, ChartOptions } from 'chart.js'
 
 interface Charts extends HTMLProps<any> {
   innerRef?: any
-  datasets?: Array<any>
+  datasets?: ChartDataSets[]
   labels?: string | Array<any>
-  options?: any
+  options?: ChartOptions
   plugins?: Array<any>
 }
 
