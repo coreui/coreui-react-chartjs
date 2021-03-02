@@ -2,6 +2,7 @@
 
 [![npm package][npm-badge]][npm]
 [![NPM downloads][npm-download]][npm]
+![react](https://img.shields.io/badge/react-^17.0.1-lightgrey.svg?style=flat-square&logo=react)
 
 [npm-badge]: https://img.shields.io/npm/v/@coreui/react-chartjs/latest?style=flat-square
 [npm]: https://www.npmjs.com/package/@coreui/react-chartjs
