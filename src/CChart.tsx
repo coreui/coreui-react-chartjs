@@ -1,15 +1,16 @@
+import PropTypes from 'prop-types'
 import React, {
+  forwardRef,
   HTMLAttributes,
   useEffect,
-  useState,
-  useRef,
   useImperativeHandle,
   useMemo,
-  forwardRef,
+  useState,
+  useRef,
 } from 'react'
 
 import Chart from 'chart.js/auto'
-import * as chartjs from 'chart.js';
+import * as chartjs from 'chart.js'
 import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs'
 
 import merge from 'lodash/merge'
@@ -17,62 +18,130 @@ import assign from 'lodash/assign'
 import find from 'lodash/find'
 
 export interface CChartProps extends HTMLAttributes<HTMLCanvasElement | HTMLDivElement> {
-  id?: string
+  /**
+   * A string of all className you want applied to the base component.
+   */
   className?: string
-  defaults?: any
-  height?: number
-  width?: number
-  redraw?: boolean
-  type: Chart.ChartType
+  /**
+   * Enables custom html based tooltips instead of standard tooltips.
+   *
+   * @default true
+   */
+  customTooltips?: boolean
+  /**
+   * The data object that is passed into the Chart.js chart (more info).
+   */
   data: Chart.ChartData | ((canvas: HTMLCanvasElement) => Chart.ChartData)
-  options?: Chart.ChartOptions
+  /**
+   * A fallback for when the canvas cannot be rendered. Can be used for accessible chart descriptions.
+   *
+   * {@link https://www.chartjs.org/docs/latest/general/accessibility.html More Info}
+   */
   fallbackContent?: React.ReactNode
-  plugins?: Chart.PluginServiceRegistrationOptions[]
+  /**
+   * Proxy for Chart.js getDatasetAtEvent. Calls with dataset and triggering event.
+   */
   getDatasetAtEvent?: (dataset: Array<{}>, event: React.MouseEvent<HTMLCanvasElement>) => void
+  /**
+   * Proxy for Chart.js getElementAtEvent. Calls with single element array and triggering event.
+   */
   getElementAtEvent?: (element: [{}], event: React.MouseEvent<HTMLCanvasElement>) => void
+  /**
+   * Proxy for Chart.js getElementsAtEvent. Calls with element array and triggering event.
+   */
   getElementsAtEvent?: (elements: Array<{}>, event: React.MouseEvent<HTMLCanvasElement>) => void
+  /**
+   * Height attribute applied to the rendered canvas.
+   *
+   * @default 150
+   */
+  height?: number
+  /**
+   * ID attribute applied to the rendered canvas.
+   */
+  id?: string
+  /**
+   * The options object that is passed into the Chart.js chart.
+   *
+   * {@link https://www.chartjs.org/docs/latest/general/options.html More Info}
+   */
+  options?: Chart.ChartOptions
+  /**
+   * The plugins array that is passed into the Chart.js chart (more info)
+   *
+   * {@link https://www.chartjs.org/docs/latest/developers/plugins.html More Info}
+   */
+  plugins?: Chart.PluginServiceRegistrationOptions[]
+  /**
+   * If true, will tear down and redraw chart on all updates.
+   *
+   * @default false
+   */
+  redraw?: boolean
+  /**
+   * Chart.js chart type.
+   *
+   * @type {'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter'}
+   */
+  type: Chart.ChartType
+  /**
+   * Width attribute applied to the rendered canvas.
+   *
+   * @default 300
+   */
+  width?: number
+  /**
+   * Put the chart into the wrapper div element.
+   *
+   * @default true
+   */
+  wrapper?: boolean
 }
 
 export const CChart = forwardRef<Chart | undefined, CChartProps>((props, ref) => {
   const {
-    id,
     className,
-    height = 150,
-    width = 300,
-    redraw = false,
-    type,
+    customTooltips = true,
     data,
-    options,
-    plugins = [],
+    id,
+    fallbackContent,
     getDatasetAtEvent,
     getElementAtEvent,
     getElementsAtEvent,
-    fallbackContent,
+    height = 150,
+    options,
+    plugins = [],
+    redraw = false,
+    type,
+    width = 300,
+    wrapper = true,
     ...rest
   } = props
 
-  const canvas = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null)
 
   const computedData = useMemo<Chart.ChartData>(() => {
     if (typeof data === 'function') {
-      return canvas.current ? data(canvas.current) : {}
+      return canvasRef.current ? data(canvasRef.current) : {}
     } else return merge({}, data)
-  }, [data, canvas.current])
+  }, [data, canvasRef.current])
 
   const [chart, setChart] = useState<Chart>()
 
   useImperativeHandle<Chart | undefined, Chart | undefined>(ref, () => chart, [chart])
 
   const renderChart = () => {
-    if (!canvas.current) return
+    if (!canvasRef.current) return
 
-    chartjs.defaults.plugins.tooltip.enabled = false
-    chartjs.defaults.plugins.tooltip.mode = 'index'
-    chartjs.defaults.plugins.tooltip.position = 'nearest'
-    chartjs.defaults.plugins.tooltip.external = cuiCustomTooltips
-    
+    if (customTooltips) {
+      chartjs.defaults.plugins.tooltip.enabled = false
+      chartjs.defaults.plugins.tooltip.mode = 'index'
+      chartjs.defaults.plugins.tooltip.position = 'nearest'
+      chartjs.defaults.plugins.tooltip.external = cuiCustomTooltips
+    }
+
     setChart(
-      new Chart(canvas.current, {
+      new Chart(canvasRef.current, {
         type,
         data: computedData,
         options,
@@ -167,12 +236,12 @@ export const CChart = forwardRef<Chart | undefined, CChartProps>((props, ref) =>
     }
   }, [props, computedData])
 
-  return (
-    <div className={`chart-wrapper ${className}`} {...rest}>
+  const canvas = (ref: React.Ref<HTMLCanvasElement>) => {
+    return (
       <canvas
         height={height}
         width={width}
-        ref={canvas}
+        ref={ref}
         id={id}
         onClick={onClick}
         data-testid="canvas"
@@ -180,6 +249,60 @@ export const CChart = forwardRef<Chart | undefined, CChartProps>((props, ref) =>
       >
         {fallbackContent}
       </canvas>
+    )
+  }
+
+  return wrapper ? (
+    <div className={`chart-wrapper ${className}`} {...rest}>
+      {canvas(canvasRef)}
     </div>
+  ) : (
+    canvas(canvasRef)
   )
+
+  // return (
+  //   <div className={`chart-wrapper ${className}`} {...rest}>
+  //     <canvas
+  //       height={height}
+  //       width={width}
+  //       ref={canvasRef}
+  //       id={id}
+  //       onClick={onClick}
+  //       data-testid="canvas"
+  //       role="img"
+  //     >
+  //       {fallbackContent}
+  //     </canvas>
+  //   </div>
+  // )
 })
+
+CChart.propTypes = {
+  className: PropTypes.string,
+  customTooltips: PropTypes.bool,
+  data: PropTypes.oneOfType([PropTypes.object, PropTypes.func]), // TODO: check
+  fallbackContent: PropTypes.node,
+  getDatasetAtEvent: PropTypes.func, // TODO: check
+  getElementAtEvent: PropTypes.func, // TODO: check
+  getElementsAtEvent: PropTypes.func, // TODO: check
+  height: PropTypes.number,
+  id: PropTypes.string,
+  options: PropTypes.object, // TODO: check
+  plugins: PropTypes.array, // TODO: check
+  redraw: PropTypes.bool,
+  type: PropTypes.oneOf([
+    'line',
+    'bar',
+    'horizontalBar',
+    'radar',
+    'doughnut',
+    'polarArea',
+    'bubble',
+    'pie',
+    'scatter',
+  ]),
+  width: PropTypes.number,
+  wrapper: PropTypes.bool
+}
+
+CChart.displayName = 'CChart'

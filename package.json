@@ -31,10 +31,11 @@
     "README.md"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
   "dependencies": {
-    "@coreui/chartjs": "^3.0.0-alpha.0",
+    "@coreui/chartjs": "^3.0.0-rc.0",
     "chart.js": "^3.2.1"
   },
   "peerDependencies": {
@@ -45,13 +46,19 @@
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@types/lodash": "^4.14.169",
     "@types/react": "^17.0.5",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
     "babel-eslint": "^10.1.0",
     "classnames": "^2.3.1",
     "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.23.2",
+    "eslint-plugin-jsdoc": "^34.8.2",
+    "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "lodash": "^4.17.21",
+    "prettier": "^2.3.0",
     "prop-types": "^15.7.2",
     "rollup": "^2.48.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
