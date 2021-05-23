@@ -13,9 +13,9 @@ import Chart from 'chart.js/auto'
 import * as chartjs from 'chart.js'
 import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs'
 
-import merge from 'lodash/merge'
 import assign from 'lodash/assign'
 import find from 'lodash/find'
+import merge from 'lodash/merge'
 
 export interface CChartProps extends HTMLAttributes<HTMLCanvasElement | HTMLDivElement> {
   /**
@@ -259,22 +259,6 @@ export const CChart = forwardRef<Chart | undefined, CChartProps>((props, ref) =>
   ) : (
     canvas(canvasRef)
   )
-
-  // return (
-  //   <div className={`chart-wrapper ${className}`} {...rest}>
-  //     <canvas
-  //       height={height}
-  //       width={width}
-  //       ref={canvasRef}
-  //       id={id}
-  //       onClick={onClick}
-  //       data-testid="canvas"
-  //       role="img"
-  //     >
-  //       {fallbackContent}
-  //     </canvas>
-  //   </div>
-  // )
 })
 
 CChart.propTypes = {
@@ -302,7 +286,7 @@ CChart.propTypes = {
     'scatter',
   ]),
   width: PropTypes.number,
-  wrapper: PropTypes.bool
+  wrapper: PropTypes.bool,
 }
 
 CChart.displayName = 'CChart'
