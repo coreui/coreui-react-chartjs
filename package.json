@@ -1,6 +1,6 @@
 {
   "name": "@coreui/react-chartjs",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-beta.0",
   "description": "CoreUI React component wrapper for chart.js",
   "license": "MIT",
   "homepage": "https://coreui.io",
@@ -35,8 +35,8 @@
     "lint": "eslint 'src/**/*.{js,ts,tsx}'"
   },
   "dependencies": {
-    "@coreui/chartjs": "^3.0.0-rc.0",
-    "chart.js": "^3.2.1"
+    "@coreui/chartjs": "^3.0.0",
+    "chart.js": "^3.4.1"
   },
   "peerDependencies": {
     "react": "^17.0.2"
@@ -44,26 +44,26 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
-    "@types/lodash": "^4.14.169",
-    "@types/react": "^17.0.5",
-    "@typescript-eslint/eslint-plugin": "^4.24.0",
-    "@typescript-eslint/parser": "^4.24.0",
+    "@types/lodash": "^4.14.170",
+    "@types/react": "^17.0.13",
+    "@typescript-eslint/eslint-plugin": "^4.28.1",
+    "@typescript-eslint/parser": "^4.28.1",
     "babel-eslint": "^10.1.0",
     "classnames": "^2.3.1",
-    "eslint": "^7.26.0",
+    "eslint": "^7.30.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.23.2",
-    "eslint-plugin-jsdoc": "^34.8.2",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsdoc": "^35.4.1",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "lodash": "^4.17.21",
-    "prettier": "^2.3.0",
+    "prettier": "^2.3.2",
     "prop-types": "^15.7.2",
-    "rollup": "^2.48.0",
+    "rollup": "^2.52.7",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-typescript2": "^0.30.0",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.5"
   },
   "keywords": [
     "coreui",
