@@ -1,7 +1,6 @@
 import React, { forwardRef } from 'react'
 import { CChart, CChartProps } from './CChart'
 import Chart from 'chart.js/auto'
-// import * as chartjs from 'chart.js';
 
 export const CChartBar = forwardRef<Chart | undefined, CChartProps>((props, ref) => (
   <CChart {...props} type="bar" ref={ref} />
@@ -20,12 +19,6 @@ export const CChartDoughnut = forwardRef<Chart | undefined, CChartProps>((props,
 ))
 
 CChartDoughnut.displayName = 'CChartDoughnut'
-
-export const CChartHorizontalBar = forwardRef<Chart | undefined, CChartProps>((props, ref) => (
-  <CChart {...props} type="horizontalBar" ref={ref} />
-))
-
-CChartHorizontalBar.displayName = 'CChartHorizontalBar'
 
 export const CChartLine = forwardRef<Chart | undefined, CChartProps>((props, ref) => (
   <CChart {...props} type="line" ref={ref} />

@@ -44,7 +44,7 @@ import {
 ```js
 
 /**
- * A string of all className you want applied to the base component.
+* A string of all className you want applied to the base component.
  */
 className?: string
 /**
@@ -56,7 +56,7 @@ customTooltips?: boolean
 /**
  * The data object that is passed into the Chart.js chart (more info).
  */
-data: Chart.ChartData | ((canvas: HTMLCanvasElement) => Chart.ChartData)
+data: ChartData | ((canvas: HTMLCanvasElement) => ChartData)
 /**
  * A fallback for when the canvas cannot be rendered. Can be used for accessible chart descriptions.
  *
@@ -66,15 +66,24 @@ fallbackContent?: React.ReactNode
 /**
  * Proxy for Chart.js getDatasetAtEvent. Calls with dataset and triggering event.
  */
-getDatasetAtEvent?: (dataset: Array<{}>, event: React.MouseEvent<HTMLCanvasElement>) => void
+getDatasetAtEvent?: (
+  dataset: InteractionItem[],
+  event: React.MouseEvent<HTMLCanvasElement>,
+) => void
 /**
  * Proxy for Chart.js getElementAtEvent. Calls with single element array and triggering event.
  */
-getElementAtEvent?: (element: [{}], event: React.MouseEvent<HTMLCanvasElement>) => void
+getElementAtEvent?: (
+  element: InteractionItem[],
+  event: React.MouseEvent<HTMLCanvasElement>,
+) => void
 /**
  * Proxy for Chart.js getElementsAtEvent. Calls with element array and triggering event.
  */
-getElementsAtEvent?: (elements: Array<{}>, event: React.MouseEvent<HTMLCanvasElement>) => void
+getElementsAtEvent?: (
+  elements: InteractionItem[],
+  event: React.MouseEvent<HTMLCanvasElement>,
+) => void
 /**
  * Height attribute applied to the rendered canvas.
  *
@@ -90,13 +99,13 @@ id?: string
  *
  * {@link https://www.chartjs.org/docs/latest/general/options.html More Info}
  */
-options?: Chart.ChartOptions
+options?: ChartOptions
 /**
  * The plugins array that is passed into the Chart.js chart (more info)
  *
  * {@link https://www.chartjs.org/docs/latest/developers/plugins.html More Info}
  */
-plugins?: Chart.PluginServiceRegistrationOptions[]
+plugins?: Plugin[]
 /**
  * If true, will tear down and redraw chart on all updates.
  *
@@ -106,9 +115,9 @@ redraw?: boolean
 /**
  * Chart.js chart type.
  *
- * @type {'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter'}
+ * @type {'line' | 'bar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter'}
  */
-type: Chart.ChartType
+type: ChartType
 /**
  * Width attribute applied to the rendered canvas.
  *

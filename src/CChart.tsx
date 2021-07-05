@@ -9,7 +9,7 @@ import React, {
   useRef,
 } from 'react'
 
-import Chart from 'chart.js/auto'
+import Chart, { ChartData, ChartOptions, ChartType, InteractionItem, Plugin } from 'chart.js/auto'
 import * as chartjs from 'chart.js'
 import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs'
 
@@ -31,7 +31,7 @@ export interface CChartProps extends HTMLAttributes<HTMLCanvasElement | HTMLDivE
   /**
    * The data object that is passed into the Chart.js chart (more info).
    */
-  data: Chart.ChartData | ((canvas: HTMLCanvasElement) => Chart.ChartData)
+  data: ChartData | ((canvas: HTMLCanvasElement) => ChartData)
   /**
    * A fallback for when the canvas cannot be rendered. Can be used for accessible chart descriptions.
    *
@@ -41,15 +41,24 @@ export interface CChartProps extends HTMLAttributes<HTMLCanvasElement | HTMLDivE
   /**
    * Proxy for Chart.js getDatasetAtEvent. Calls with dataset and triggering event.
    */
-  getDatasetAtEvent?: (dataset: Array<{}>, event: React.MouseEvent<HTMLCanvasElement>) => void
+  getDatasetAtEvent?: (
+    dataset: InteractionItem[],
+    event: React.MouseEvent<HTMLCanvasElement>,
+  ) => void
   /**
    * Proxy for Chart.js getElementAtEvent. Calls with single element array and triggering event.
    */
-  getElementAtEvent?: (element: [{}], event: React.MouseEvent<HTMLCanvasElement>) => void
+  getElementAtEvent?: (
+    element: InteractionItem[],
+    event: React.MouseEvent<HTMLCanvasElement>,
+  ) => void
   /**
    * Proxy for Chart.js getElementsAtEvent. Calls with element array and triggering event.
    */
-  getElementsAtEvent?: (elements: Array<{}>, event: React.MouseEvent<HTMLCanvasElement>) => void
+  getElementsAtEvent?: (
+    elements: InteractionItem[],
+    event: React.MouseEvent<HTMLCanvasElement>,
+  ) => void
   /**
    * Height attribute applied to the rendered canvas.
    *
@@ -65,13 +74,13 @@ export interface CChartProps extends HTMLAttributes<HTMLCanvasElement | HTMLDivE
    *
    * {@link https://www.chartjs.org/docs/latest/general/options.html More Info}
    */
-  options?: Chart.ChartOptions
+  options?: ChartOptions
   /**
    * The plugins array that is passed into the Chart.js chart (more info)
    *
    * {@link https://www.chartjs.org/docs/latest/developers/plugins.html More Info}
    */
-  plugins?: Chart.PluginServiceRegistrationOptions[]
+  plugins?: Plugin[]
   /**
    * If true, will tear down and redraw chart on all updates.
    *
@@ -81,9 +90,9 @@ export interface CChartProps extends HTMLAttributes<HTMLCanvasElement | HTMLDivE
   /**
    * Chart.js chart type.
    *
-   * @type {'line' | 'bar' | 'horizontalBar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter'}
+   * @type {'line' | 'bar' | 'radar' | 'doughnut' | 'polarArea' | 'bubble' | 'pie' | 'scatter'}
    */
-  type: Chart.ChartType
+  type: ChartType
   /**
    * Width attribute applied to the rendered canvas.
    *
@@ -120,9 +129,9 @@ export const CChart = forwardRef<Chart | undefined, CChartProps>((props, ref) =>
 
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
-  const computedData = useMemo<Chart.ChartData>(() => {
+  const computedData = useMemo(() => {
     if (typeof data === 'function') {
-      return canvasRef.current ? data(canvasRef.current) : {}
+      return canvasRef.current ? data(canvasRef.current) : { datasets: [] }
     } else return merge({}, data)
   }, [data, canvasRef.current])
 
@@ -150,7 +159,7 @@ export const CChart = forwardRef<Chart | undefined, CChartProps>((props, ref) =>
     )
   }
 
-  const onClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
+  const handleOnClick = (e: any) => {
     if (!chart) return
 
     getDatasetAtEvent &&
@@ -243,7 +252,9 @@ export const CChart = forwardRef<Chart | undefined, CChartProps>((props, ref) =>
         width={width}
         ref={ref}
         id={id}
-        onClick={onClick}
+        onClick={(e: React.MouseEvent<HTMLCanvasElement>) => {
+          handleOnClick(e)
+        }}
         data-testid="canvas"
         role="img"
       >
@@ -264,27 +275,26 @@ export const CChart = forwardRef<Chart | undefined, CChartProps>((props, ref) =>
 CChart.propTypes = {
   className: PropTypes.string,
   customTooltips: PropTypes.bool,
-  data: PropTypes.oneOfType([PropTypes.object, PropTypes.func]), // TODO: check
+  data: PropTypes.any.isRequired, // TODO: check
   fallbackContent: PropTypes.node,
-  getDatasetAtEvent: PropTypes.func, // TODO: check
-  getElementAtEvent: PropTypes.func, // TODO: check
-  getElementsAtEvent: PropTypes.func, // TODO: check
+  getDatasetAtEvent: PropTypes.func,
+  getElementAtEvent: PropTypes.func,
+  getElementsAtEvent: PropTypes.func,
   height: PropTypes.number,
   id: PropTypes.string,
-  options: PropTypes.object, // TODO: check
-  plugins: PropTypes.array, // TODO: check
+  options: PropTypes.object,
+  plugins: PropTypes.array,
   redraw: PropTypes.bool,
-  type: PropTypes.oneOf([
-    'line',
+  type: PropTypes.oneOf<ChartType>([
     'bar',
-    'horizontalBar',
-    'radar',
-    'doughnut',
-    'polarArea',
+    'line',
+    'scatter',
     'bubble',
     'pie',
-    'scatter',
-  ]),
+    'doughnut',
+    'polarArea',
+    'radar',
+  ]).isRequired,
   width: PropTypes.number,
   wrapper: PropTypes.bool,
 }
