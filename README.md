@@ -180,13 +180,3 @@ render() {
 }
 ...
 ```
-
-##### `npm run` scripts
-
-`package.json` is configured with `"scripts"` we can use with `npm run` or `yarn` while developing the project.
-
-| Command                         | Description                    |
-| ------------------------------- | ------------------------------ |
-| `npm run build` or `yarn build` | build production ready version |
-| `npm run lint` or `yarn lint`   | run eslint                     |
-
