@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import React, {
   forwardRef,
   HTMLAttributes,
+  MutableRefObject,
   useEffect,
   useImperativeHandle,
   useMemo,
@@ -110,6 +111,16 @@ export interface CChartProps extends HTMLAttributes<HTMLCanvasElement | HTMLDivE
   wrapper?: boolean
 }
 
+type ForwardedRef<T> = ((instance: T | null) => void) | MutableRefObject<T | null> | null
+
+const reforwardRef = <T,>(ref: ForwardedRef<T>, value: T) => {
+  if (typeof ref === 'function') {
+    ref(value)
+  } else if (ref) {
+    ref.current = value
+  }
+}
+
 export const CChart = forwardRef<ChartJS | undefined, CChartProps>(
   (
     {
@@ -180,6 +191,8 @@ export const CChart = forwardRef<ChartJS | undefined, CChartProps>(
         options: computedOptions,
         plugins,
       })
+
+      reforwardRef(ref, chartRef.current)
     }
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -253,6 +266,8 @@ export const CChart = forwardRef<ChartJS | undefined, CChartProps>(
     }
 
     const destroyChart = () => {
+      reforwardRef(ref, null)
+
       if (chartRef.current) {
         chartRef.current.destroy()
         chartRef.current = undefined
