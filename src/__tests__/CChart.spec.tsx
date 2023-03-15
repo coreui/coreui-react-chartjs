@@ -72,20 +72,6 @@ describe('<CChart />', () => {
     expect(chart.config.type).toEqual('bar')
   })
 
-  it('should pass props onto chart if data is fn', () => {
-    const dataFn = jest.fn((c) => (c ? data : { datasets: [] }))
-
-    render(<CChart data={dataFn} options={options} type="bar" ref={ref} wrapper={false} />)
-
-    expect(chart.config.data).toMatchObject(data)
-    expect(chart.config.options).toMatchObject(options)
-    expect(chart.config.type).toEqual('bar')
-
-    expect(dataFn).toHaveBeenCalledTimes(1)
-    expect(dataFn).toHaveBeenCalledWith(expect.any(HTMLCanvasElement))
-    expect(update).toHaveBeenCalledTimes(1)
-  })
-
   it('should pass new data on data change', () => {
     const newData = {
       labels: ['red', 'blue'],
@@ -128,76 +114,6 @@ describe('<CChart />', () => {
     expect(update).toHaveBeenCalled()
     expect(chart.id).toEqual(id)
   })
-
-  // it('should properly maintain order with new data', () => {
-  //   const oldData = {
-  //     labels: ['red', 'blue'],
-  //     datasets: [
-  //       { label: 'new-colors', data: [1, 2] },
-  //       { label: 'colors', data: [3, 2] },
-  //     ],
-  //   }
-
-  //   const newData = {
-  //     labels: ['red', 'blue'],
-  //     datasets: [
-  //       { label: 'colors', data: [3, 2] },
-  //       { label: 'new-colors', data: [1, 2] },
-  //     ],
-  //   }
-
-  //   const { rerender } = render(
-  //     <CChart data={oldData} options={options} type="bar" ref={ref} wrapper={false} />,
-  //   )
-
-  //   const meta = Object.assign({}, chart._metasets)
-
-  //   const id = chart.id
-
-  //   rerender(<CChart data={newData} options={options} type="bar" ref={ref} wrapper={false} />)
-
-  //   expect(chart.config.data).toMatchObject(newData)
-  //   expect(meta[0]).toBe(chart._metasets[1])
-  //   expect(meta[1]).toBe(chart._metasets[0])
-  //   expect(update).toHaveBeenCalled()
-  //   expect(chart.id).toEqual(id)
-  // })
-
-  // it('should properly update when original data did not exist', () => {
-  //   const oldData = {
-  //     labels: ['red', 'blue'],
-  //     datasets: [
-  //       { label: 'new-colors', data: [1, 6] },
-  //       { label: 'colors', data: [3, 2] },
-  //     ],
-  //   }
-
-  //   const newData = {
-  //     labels: ['red', 'blue'],
-  //     datasets: [
-  //       { label: 'colors', data: [4, 5] },
-  //       { label: 'new-colors', data: [1, 2] },
-  //     ],
-  //   }
-
-  //   const { rerender } = render(
-  //     <CChart data={oldData} options={options} type="bar" ref={ref} wrapper={false} />,
-  //   )
-
-  //   // even when we feed the data as undefined, the constructor will
-  //   // force it to []. Here we force it back
-  //   chart.config.data.datasets[0].data = undefined
-  //   const meta = Object.assign({}, chart._metasets)
-
-  //   const id = chart.id
-
-  //   rerender(<CChart data={newData} options={options} type="bar" ref={ref} wrapper={false} />)
-
-  //   expect(chart.config.data).toMatchObject(newData)
-  //   expect(meta[0]).toBe(chart._metasets[1])
-  //   expect(update).toHaveBeenCalled()
-  //   expect(chart.id).toEqual(id)
-  // })
 
   it('should properly update when incoming data does not exist', () => {
     const oldData = {
@@ -347,23 +263,6 @@ describe('<CChart />', () => {
 
     expect(getElementsAtEvent).toHaveBeenCalled()
   })
-
-  // it('should show fallback content if given', () => {
-  //   const fallback = <p data-testid="fallbackContent">Fallback content</p>
-  //   const { getByTestId } = render(
-  //     <CChart
-  //       data={data}
-  //       options={options}
-  //       className="chart-example"
-  //       type="bar"
-  //       ref={ref}
-  //       fallbackContent={fallback}
-  //     />,
-  //   )
-
-  //   expect(chart).toBeTruthy()
-  //   expect(chart.canvas).toContainElement(getByTestId('fallbackContent'))
-  // })
 
   it('should pass through aria labels to the canvas element', () => {
     const ariaLabel = 'ARIA LABEL'

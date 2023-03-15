@@ -8,9 +8,6 @@
 'use strict'
 
 module.exports = {
-  moduleNameMapper: {
-    '\\.(css|scss)$': '<rootDir>/packages/coreui-icons-react/test/styleMock.js',
-  },
   preset: 'ts-jest',
   setupFiles: ['jest-canvas-mock'],
   testEnvironment: 'jsdom',
