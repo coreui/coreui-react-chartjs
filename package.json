@@ -1,61 +1,7 @@
 {
   "name": "@coreui/react-chartjs",
-  "version": "1.1.0",
-  "description": "CoreUI React component wrapper for chart.js",
-  "license": "MIT",
-  "homepage": "https://coreui.io",
-  "author": {
-    "name": "CoreUI",
-    "url": "https://coreui.io",
-    "github": "https://github.com/coreui",
-    "twitter": "https://twitter.com/core_ui"
-  },
-  "contributors": [
-    {
-      "name": "CoreUI Team",
-      "url": "https://github.com/orgs/coreui/people"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/coreui/coreui-react-chartjs.git"
-  },
-  "bugs": {
-    "url": "https://github.com/coreui/coreui-react-chartjs/issues"
-  },
-  "main": "lib/index.js",
-  "module": "es/index.js",
-  "types": "src/index.d.ts",
-  "files": [
-    "css/",
-    "es/",
-    "src/",
-    "lib/",
-    "umd/",
-    "README.md"
-  ],
-  "scripts": {
-    "build": "nwb build-react-component --copy-files --no-demo",
-    "clean": "nwb clean-module && nwb clean-demo",
-    "lint": "eslint src"
-  },
-  "dependencies": {
-    "@coreui/chartjs": "^2.0.0",
-    "chart.js": "^2.9.4",
-    "classnames": "^2.2.6",
-    "prop-types": "^15.7.2",
-    "@types/chart.js": "^2.9.31"
-  },
-  "peerDependencies": {
-    "react": "^17.0.1"
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "eslint": "^7.21.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-react": "^7.22.0",
-    "nwb": "^0.25.2"
-  },
+  "version": "2.1.2",
+  "description": "React wrapper component for Chart.js",
   "keywords": [
     "coreui",
     "chart.js",
@@ -67,6 +13,53 @@
     "react chart.js implementation",
     "layout",
     "component",
-    "react"
-  ]
+    "react",
+    "react-component",
+    "react component"
+  ],
+  "homepage": "https://coreui.io/react/docs/components/chart/",
+  "bugs": {
+    "url": "https://github.com/coreui/coreui-react/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/coreui/coreui-react.git"
+  },
+  "license": "MIT",
+  "author": "The CoreUI Team (https://github.com/orgs/coreui/people)",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "files": [
+    "dist/",
+    "src/"
+  ],
+  "scripts": {
+    "build": "rollup -c --bundleConfigAsCjs"
+  },
+  "dependencies": {
+    "@coreui/chartjs": "^3.0.0",
+    "chart.js": "3.9.1"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@types/lodash": "^4.14.191",
+    "@types/react": "18.0.27",
+    "@types/react-dom": "^18.0.6",
+    "classnames": "^2.3.2",
+    "lodash": "^4.17.21",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^3.14.0",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
+  }
 }
