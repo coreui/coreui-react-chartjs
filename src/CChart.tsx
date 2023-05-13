@@ -4,7 +4,6 @@ import React, {
   HTMLAttributes,
   MutableRefObject,
   useEffect,
-  useImperativeHandle,
   useMemo,
   useRef,
 } from 'react'
@@ -154,10 +153,6 @@ export const CChart = forwardRef<ChartJS | undefined, CChartProps>(
         >
       | undefined
     >()
-
-    useImperativeHandle<ChartJS | undefined, ChartJS | undefined>(ref, () => chartRef.current, [
-      chartRef,
-    ])
 
     const computedData = useMemo(() => {
       if (typeof data === 'function') {
