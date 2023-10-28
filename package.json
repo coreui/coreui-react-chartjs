@@ -28,14 +28,14 @@
   "license": "MIT",
   "author": "The CoreUI Team (https://github.com/orgs/coreui/people)",
   "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
+  "module": "dist/index.esm.js",
+  "jsnext:main": "dist/index.esm.js",
   "files": [
     "dist/",
     "src/"
   ],
   "scripts": {
-    "build": "rollup -c --bundleConfigAsCjs",
+    "build": "rollup --config",
     "test": "jest --coverage",
     "test:update": "jest --coverage --updateSnapshot"
   },
