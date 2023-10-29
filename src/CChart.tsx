@@ -17,7 +17,7 @@ import type {
   ChartTypeRegistry,
   InteractionItem,
   Plugin,
-  ScatterDataPoint,
+  Point,
   BubbleDataPoint,
 } from 'chart.js'
 import { customTooltips as cuiCustomTooltips } from '@coreui/chartjs'
@@ -148,7 +148,7 @@ export const CChart = forwardRef<ChartJS | undefined, CChartProps>(
     const chartRef = useRef<
       | ChartJS<
           keyof ChartTypeRegistry,
-          (number | ScatterDataPoint | BubbleDataPoint | null)[],
+          (number | [number, number] | Point | BubbleDataPoint | null)[],
           unknown
         >
       | undefined
