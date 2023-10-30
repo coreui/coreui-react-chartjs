@@ -31,7 +31,7 @@ export default {
       },
     },
   ],
-  external: ['react', 'react-dom'],
+  external: ['@coreui/chartjs', 'chart.js', 'react', 'react-dom'],
   plugins: [
     resolve(),
     typescript({
